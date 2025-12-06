@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>NeuroSense - Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -34,35 +34,39 @@
       background: var(--section-bg);
       color: var(--text-color);
       overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
     
     body[dir="rtl"] {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Arial', sans-serif;
     }
     
+    /* Header Improvements */
     header {
       background: var(--header-bg);
       color: var(--light-text);
-      padding: 15px 5%;
+      padding: 12px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      height: 60px;
     }
     
     .logo {
       display: flex;
       align-items: center;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
+      z-index: 1001;
     }
     
     .logo i {
       margin-right: 10px;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
     }
     
     body[dir="rtl"] .logo i {
@@ -70,9 +74,50 @@
       margin-left: 10px;
     }
     
+    /* Hamburger Menu */
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    
+    .hamburger-menu span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-menu.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    /* Navigation Improvements */
+    nav {
+      transition: all 0.3s ease;
+    }
+    
     nav ul {
       display: flex;
       list-style: none;
+      align-items: center;
     }
     
     body[dir="rtl"] nav ul {
@@ -95,26 +140,124 @@
       transition: all 0.3s;
       display: flex;
       align-items: center;
+      white-space: nowrap;
+      padding: 8px 12px;
+      border-radius: 5px;
     }
     
     nav ul li a:hover {
-      opacity: 0.9;
+      background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
     }
     
     nav ul li a i {
-      margin-right: 5px;
+      margin-right: 8px;
+      font-size: 1.1rem;
     }
     
     body[dir="rtl"] nav ul li a i {
       margin-right: 0;
-      margin-left: 5px;
+      margin-left: 8px;
+    }
+    
+    /* Mobile Navigation */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .mobile-nav-overlay.active {
+      opacity: 1;
+    }
+    
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100%;
+      background: var(--header-bg);
+      z-index: 1000;
+      padding: 80px 20px 20px;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+    
+    body[dir="rtl"] .mobile-nav {
+      right: auto;
+      left: -100%;
+    }
+    
+    .mobile-nav.active {
+      right: 0;
+    }
+    
+    body[dir="rtl"] .mobile-nav.active {
+      right: auto;
+      left: 0;
+    }
+    
+    .mobile-nav ul {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      width: 100%;
+    }
+    
+    .mobile-nav ul li {
+      margin: 0;
+      width: 100%;
+    }
+    
+    .mobile-nav ul li a {
+      color: var(--light-text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+      width: 100%;
+    }
+    
+    .mobile-nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      padding-left: 25px;
+    }
+    
+    body[dir="rtl"] .mobile-nav ul li a:hover {
+      padding-left: 15px;
+      padding-right: 25px;
+    }
+    
+    .mobile-nav ul li a i {
+      margin-right: 15px;
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+    
+    body[dir="rtl"] .mobile-nav ul li a i {
+      margin-right: 0;
+      margin-left: 15px;
     }
     
     .header-controls {
       display: flex;
       align-items: center;
       gap: 15px;
+      z-index: 1001;
     }
     
     .language-switcher {
@@ -127,9 +270,9 @@
     }
     
     .language-option {
-      padding: 5px 10px;
+      padding: 5px 12px;
       border-radius: 15px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       transition: all 0.3s;
     }
     
@@ -146,17 +289,21 @@
     }
     
     .user-profile img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      margin-right: 10px;
+      margin-right: 8px;
       object-fit: cover;
       border: 2px solid rgba(255, 255, 255, 0.3);
     }
     
     body[dir="rtl"] .user-profile img {
       margin-right: 0;
-      margin-left: 10px;
+      margin-left: 8px;
+    }
+    
+    .user-profile span {
+      display: none;
     }
     
     .dropdown-menu {
@@ -166,7 +313,7 @@
       background: var(--card-bg);
       border-radius: 8px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      width: 200px;
+      width: 180px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s;
@@ -186,10 +333,11 @@
     
     .dropdown-menu a {
       display: block;
-      padding: 10px 15px;
+      padding: 12px 15px;
       color: var(--text-color);
       text-decoration: none;
       transition: all 0.3s;
+      font-size: 0.9rem;
     }
     
     .dropdown-menu a:hover {
@@ -199,8 +347,9 @@
     
     .dropdown-menu a i {
       margin-right: 10px;
-      width: 20px;
+      width: 18px;
       text-align: center;
+      font-size: 0.9rem;
     }
     
     body[dir="rtl"] .dropdown-menu a i {
@@ -208,31 +357,32 @@
       margin-left: 10px;
     }
     
+    /* Main Content Improvements */
     .intro {
       text-align: center;
-      padding: 50px 5%;
+      padding: 30px 5%;
       background: var(--card-bg);
-      margin: 20px 5%;
+      margin: 15px 5%;
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
     
     .intro h2 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
       color: var(--primary-color);
     }
     
     .intro p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       max-width: 700px;
-      margin: 0 auto 25px;
+      margin: 0 auto 20px;
       line-height: 1.6;
     }
     
     .cta-button {
       display: inline-block;
-      padding: 12px 30px;
+      padding: 12px 25px;
       background: var(--button-bg);
       color: var(--light-text);
       border-radius: 30px;
@@ -242,85 +392,48 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       position: relative;
       overflow: hidden;
+      font-size: 1rem;
     }
     
-    .cta-button:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .cta-button:hover:before {
-      left: 100%;
-    }
-    
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      background: var(--button-hover);
-    }
-    
+    /* Featured Card Improvements */
     .featured-card {
       grid-column: 1 / -1;
       background: var(--featured-card-bg);
       color: white;
-      padding: 40px;
+      padding: 30px 20px;
       border-radius: 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       position: relative;
       overflow: hidden;
       z-index: 1;
     }
     
-    .featured-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-      z-index: -1;
-      animation: rotate 15s linear infinite;
-    }
-    
-    @keyframes rotate {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
     .featured-card i {
-      font-size: 4rem;
-      margin-bottom: 20px;
+      font-size: 3rem;
+      margin-bottom: 15px;
       color: white;
     }
     
     .featured-card h3 {
-      font-size: 2rem;
-      margin-bottom: 15px;
+      font-size: 1.6rem;
+      margin-bottom: 12px;
     }
     
     .featured-card p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       max-width: 700px;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       line-height: 1.6;
     }
     
     .featured-button {
       display: inline-block;
-      padding: 12px 30px;
+      padding: 12px 25px;
       background: white;
       color: var(--primary-color);
       border-radius: 30px;
@@ -330,46 +443,27 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       position: relative;
       overflow: hidden;
-    }
-    
-    .featured-button:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(106, 17, 203, 0.1), transparent);
-      transition: 0.5s;
-    }
-    
-    .featured-button:hover:before {
-      left: 100%;
-    }
-    
-    .featured-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
     }
     
     .sections {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 20px;
       padding: 20px 5%;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
     
     .cards-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 20px;
     }
     
     .card {
       background: var(--card-bg);
       border-radius: 10px;
-      padding: 25px;
+      padding: 20px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       text-align: center;
       transition: all 0.3s;
@@ -381,61 +475,30 @@
       height: 100%;
     }
     
-    .card:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: var(--button-bg);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    
-    body[dir="rtl"] .card:before {
-      transform-origin: right;
-    }
-    
-    .card:hover:before {
-      transform: scaleX(1);
-    }
-    
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
     .card i {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
+      font-size: 2.2rem;
+      margin-bottom: 12px;
       color: var(--primary-color);
       transition: all 0.3s;
     }
     
-    .card:hover i {
-      transform: scale(1.1);
-      color: var(--secondary-color);
-    }
-    
     .card h3 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-bottom: 10px;
       color: var(--primary-color);
     }
     
     .card p {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.5;
       color: #666;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       flex-grow: 1;
     }
     
     .card-button {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 10px 18px;
       background: var(--button-bg);
       color: white;
       border-radius: 25px;
@@ -446,47 +509,23 @@
       border: none;
       cursor: pointer;
       font-size: 0.9rem;
-      position: relative;
-      overflow: hidden;
       align-self: center;
       margin-top: auto;
-      text-align: center;
     }
     
-    .card-button:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .card-button:hover:before {
-      left: 100%;
-    }
-    
-    .card-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-      background: var(--button-hover);
-    }
-    
-    /* New AI Cards Container */
+    /* AI Cards Container */
     .ai-cards-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-      margin-top: 30px;
-      margin-bottom: 40px;
+      gap: 20px;
+      margin-top: 25px;
+      margin-bottom: 30px;
     }
     
     .ai-card {
       background: var(--card-bg);
       border-radius: 15px;
-      padding: 30px;
+      padding: 25px 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       text-align: center;
       transition: all 0.3s;
@@ -510,50 +549,23 @@
       color: white;
     }
     
-    .ai-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
-      z-index: -1;
-      border-radius: 17px;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    
-    .ai-card:hover::before {
-      opacity: 1;
-    }
-    
-    .ai-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-    
     .ai-card i {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
+      font-size: 3rem;
+      margin-bottom: 15px;
       color: white;
       transition: all 0.3s;
     }
     
-    .ai-card:hover i {
-      transform: rotate(10deg) scale(1.2);
-    }
-    
     .ai-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
       color: white;
     }
     
     .ai-card p {
-      font-size: 1rem;
+      font-size: 0.95rem;
       line-height: 1.6;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       flex-grow: 1;
       color: rgba(255, 255, 255, 0.9);
     }
@@ -561,13 +573,13 @@
     .ai-buttons-container {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
       margin-top: auto;
     }
     
     .ai-button {
       display: block;
-      padding: 12px 20px;
+      padding: 12px 18px;
       background: rgba(255, 255, 255, 0.9);
       color: var(--text-color);
       border-radius: 25px;
@@ -577,34 +589,78 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       border: 2px solid transparent;
       text-align: center;
+      font-size: 0.9rem;
     }
     
-    .ai-card:nth-child(1) .ai-button {
-      background: white;
-      color: #0083b0;
+    /* Tests Card */
+    .tests-card {
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      color: white;
+      border-radius: 15px;
+      padding: 25px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      margin-top: 25px;
     }
     
-    .ai-card:nth-child(2) .ai-button {
-      background: white;
-      color: #eea849;
+    .tests-card i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: white;
+      transition: all 0.3s;
     }
     
-    .ai-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      background: white;
+    .tests-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: white;
     }
     
-    .ai-button:first-child {
-      margin-bottom: 5px;
+    .tests-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+      color: rgba(255, 255, 255, 0.9);
     }
     
-    /* About Us Section Styles */
+    .tests-buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: auto;
+    }
+    
+    .tests-button {
+      display: block;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #4a00e0;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 2px solid transparent;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    /* About Us Section */
     .about-us {
       background: var(--card-bg);
-      border-radius: 20px;
-      padding: 70px 5%;
-      margin: 50px 5%;
+      border-radius: 15px;
+      padding: 40px 5%;
+      margin: 30px 5%;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       position: relative;
       overflow: hidden;
@@ -612,31 +668,19 @@
     
     .about-header {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
     
     .about-header h2 {
-      font-size: 2.8rem;
+      font-size: 2rem;
       color: var(--primary-color);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       position: relative;
       display: inline-block;
     }
     
-    .about-header h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--button-bg);
-      border-radius: 2px;
-    }
-    
     .about-header p {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       max-width: 700px;
       margin: 0 auto;
       color: #666;
@@ -646,24 +690,24 @@
     .about-content {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 25px;
     }
     
     .about-section {
-      margin-bottom: 40px;
+      margin-bottom: 25px;
     }
     
     .about-section h3 {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       color: var(--primary-color);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
     }
     
     .about-section h3 i {
       margin-right: 10px;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
     
     body[dir="rtl"] .about-section h3 i {
@@ -672,18 +716,18 @@
     }
     
     .about-section p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 20px;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
       color: #555;
     }
     
     .highlight-box {
       background: var(--section-bg);
-      padding: 25px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 8px;
       border-left: 5px solid var(--primary-color);
-      margin: 30px 0;
+      margin: 20px 0;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
     
@@ -693,86 +737,45 @@
     }
     
     .highlight-box p {
-      font-size: 1.1rem;
-      line-height: 1.7;
+      font-size: 1rem;
+      line-height: 1.6;
       color: var(--primary-color);
       margin-bottom: 0;
     }
     
     .mission-vision {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
     }
     
     .mission-card, .vision-card {
       background: var(--section-bg);
-      padding: 30px;
-      border-radius: 15px;
+      padding: 25px 20px;
+      border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       text-align: center;
       position: relative;
       overflow: hidden;
     }
     
-    .mission-card::before, .vision-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: var(--button-bg);
-    }
-    
     .mission-card i, .vision-card i {
-      font-size: 2.5rem;
-      color: var(--primary-color);
-      margin-bottom: 20px;
-    }
-    
-    .mission-card h3, .vision-card h3 {
-      font-size: 1.6rem;
+      font-size: 2.2rem;
       color: var(--primary-color);
       margin-bottom: 15px;
     }
     
+    .mission-card h3, .vision-card h3 {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+    }
+    
     .mission-card p, .vision-card p {
-      font-size: 1.1rem;
-      line-height: 1.7;
+      font-size: 1rem;
+      line-height: 1.6;
       color: #555;
-    }
-    
-    /* Animation for cards */
-    .card {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
-    
-    .card:nth-child(1) { animation-delay: 0.2s; }
-    .card:nth-child(2) { animation-delay: 0.4s; }
-    .card:nth-child(3) { animation-delay: 0.6s; }
-    .card:nth-child(4) { animation-delay: 0.8s; }
-    .card:nth-child(5) { animation-delay: 1s; }
-    .card:nth-child(6) { animation-delay: 1.2s; }
-    
-    /* AI Cards Animation */
-    .ai-card {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s forwards;
-    }
-    
-    .ai-card:nth-child(1) { animation-delay: 1.4s; }
-    .ai-card:nth-child(2) { animation-delay: 1.6s; }
-    
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
     
     /* Settings Modal */
@@ -787,14 +790,17 @@
       z-index: 1000;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
     
     .modal-content {
       background: white;
       border-radius: 10px;
-      width: 90%;
+      width: 100%;
       max-width: 500px;
-      padding: 30px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 25px 20px;
       box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
       position: relative;
     }
@@ -806,6 +812,11 @@
       font-size: 1.5rem;
       cursor: pointer;
       color: #777;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     body[dir="rtl"] .close-modal {
@@ -813,24 +824,21 @@
       left: 15px;
     }
     
-    .close-modal:hover {
-      color: var(--primary-color);
-    }
-    
     .modal h3 {
       margin-bottom: 20px;
       color: var(--primary-color);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
     
     .settings-form .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     
     .settings-form label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-weight: 600;
+      font-size: 0.9rem;
     }
     
     .settings-form input {
@@ -850,54 +858,38 @@
       cursor: pointer;
       font-weight: 600;
       transition: all 0.3s;
-    }
-    
-    .settings-form button:hover {
-      background: var(--accent-color);
+      width: 100%;
+      font-size: 1rem;
     }
     
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 20px 5%;
       background: var(--footer-bg);
-      margin-top: 50px;
+      margin-top: 40px;
     }
     
     .footer-links {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       margin-bottom: 15px;
+      gap: 15px;
     }
     
     .footer-links a {
       color: var(--text-color);
-      margin: 0 15px;
       text-decoration: none;
       transition: all 0.3s;
-    }
-    
-    .footer-links a:hover {
-      color: var(--primary-color);
+      font-size: 0.9rem;
     }
     
     .social-icons {
       margin-bottom: 15px;
     }
     
-    .social-icons a {
-      color: var(--text-color);
-      margin: 0 10px;
-      font-size: 1.2rem;
-      transition: all 0.3s;
-    }
-    
-    .social-icons a:hover {
-      color: var(--primary-color);
-      transform: translateY(-3px);
-    }
-    
     .copyright {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #666;
     }
     
@@ -915,26 +907,20 @@
     }
     
     .chatbase-toggle {
-      width: 60px;
-      height: 60px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: var(--button-bg);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
       border: none;
       z-index: 10000;
-    }
-    
-    .chatbase-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-      background: var(--button-hover);
     }
     
     .chatbase-toggle.pulse {
@@ -965,90 +951,117 @@
     }
     
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 15px;
+      /* Show hamburger menu on mobile */
+      .hamburger-menu {
+        display: flex;
       }
       
-      .logo {
-        margin-bottom: 15px;
+      /* Hide desktop navigation */
+      nav:not(.mobile-nav) {
+        display: none;
       }
       
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
-      nav ul li {
-        margin: 5px 10px;
+      /* Show user profile name on mobile */
+      .user-profile span {
+        display: inline;
+        font-size: 0.9rem;
       }
       
       .header-controls {
-        margin-top: 15px;
+        gap: 10px;
+      }
+      
+      .language-switcher {
+        padding: 4px;
+      }
+      
+      .language-option {
+        padding: 4px 10px;
+        font-size: 0.8rem;
+      }
+      
+      .user-profile img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .mobile-nav-overlay {
+        display: block;
+      }
+      
+      .mobile-nav {
+        display: block;
+      }
+      
+      .intro {
+        padding: 25px 15px;
+        margin: 10px 5%;
       }
       
       .intro h2 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
       }
       
       .intro p {
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
       
       .featured-card {
-        padding: 30px 20px;
+        padding: 25px 15px;
+      }
+      
+      .featured-card i {
+        font-size: 2.5rem;
       }
       
       .featured-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+      }
+      
+      .featured-card p {
+        font-size: 0.95rem;
       }
       
       .cards-container {
         grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .card {
+        padding: 20px 15px;
+      }
+      
+      .card i {
+        font-size: 2rem;
+      }
+      
+      .card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .card p {
+        font-size: 0.9rem;
       }
       
       .ai-cards-container {
         grid-template-columns: 1fr;
+        gap: 15px;
       }
       
       .ai-card {
-        padding: 25px 20px;
+        padding: 20px 15px;
       }
       
-      .about-header h2 {
-        font-size: 2.2rem;
-      }
-      
-      .about-section h3 {
-        font-size: 1.5rem;
-      }
-      
-      .chatbase-toggle {
-        width: 55px;
-        height: 55px;
-        font-size: 22px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .intro {
-        padding: 30px 15px;
-      }
-      
-      .intro h2 {
-        font-size: 1.5rem;
-      }
-      
-      .featured-card i {
-        font-size: 3rem;
+      .ai-card i {
+        font-size: 2.5rem;
       }
       
       .ai-card h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       }
       
       .ai-card p {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
       }
       
       .ai-button {
@@ -1056,8 +1069,64 @@
         font-size: 0.9rem;
       }
       
+      .tests-card {
+        padding: 20px 15px;
+        margin-top: 15px;
+      }
+      
+      .tests-card i {
+        font-size: 2.5rem;
+      }
+      
+      .tests-card h3 {
+        font-size: 1.3rem;
+      }
+      
+      .tests-card p {
+        font-size: 0.9rem;
+      }
+      
+      .tests-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .about-us {
+        padding: 30px 15px;
+        margin: 20px 5%;
+      }
+      
       .about-header h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+      }
+      
+      .about-header p {
+        font-size: 1rem;
+      }
+      
+      .about-section h3 {
+        font-size: 1.3rem;
+      }
+      
+      .about-section p {
+        font-size: 0.95rem;
+      }
+      
+      .mission-vision {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .mission-card, .vision-card {
+        padding: 20px 15px;
+      }
+      
+      .mission-card h3, .vision-card h3 {
+        font-size: 1.3rem;
+      }
+      
+      .mission-card p, .vision-card p {
+        font-size: 0.95rem;
       }
       
       .chatbase-toggle {
@@ -1066,118 +1135,293 @@
         font-size: 20px;
       }
     }
-    /* New Tests Card Styles */
-.tests-card {
-    background: linear-gradient(135deg, #8e2de2, #4a00e0);
-    color: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: all 0.3s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    margin-top: 30px;
-}
-
-.tests-card::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #8e2de2, #4a00e0, #8e2de2);
-    z-index: -1;
-    border-radius: 17px;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-.tests-card:hover::before {
-    opacity: 1;
-}
-
-.tests-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-}
-
-.tests-card i {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    color: white;
-    transition: all 0.3s;
-}
-
-.tests-card:hover i {
-    transform: rotate(10deg) scale(1.2);
-}
-
-.tests-card h3 {
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-    color: white;
-}
-
-.tests-card p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    flex-grow: 1;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.tests-buttons-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: auto;
-}
-
-.tests-button {
-    display: block;
-    padding: 12px 20px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #4a00e0;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 2px solid transparent;
-    text-align: center;
-}
-
-.tests-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    background: white;
-    color: #4a00e0;
-}
-
-/* تعديل الـ animation ليشمل الكارد الجديدة */
-.ai-card:nth-child(1) { animation-delay: 1.4s; }
-.ai-card:nth-child(2) { animation-delay: 1.6s; }
-.tests-card { 
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s forwards;
-    animation-delay: 1.8s; 
-}
-
-/* Responsive adjustments للكارد الجديدة */
-@media (max-width: 1024px) {
-    .tests-card {
-        margin-top: 0;
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 10px 4%;
+      }
+      
+      .logo {
+        font-size: 1.1rem;
+      }
+      
+      .logo i {
+        font-size: 1.3rem;
+      }
+      
+      .hamburger-menu {
+        width: 26px;
+        height: 18px;
+      }
+      
+      .user-profile span {
+        font-size: 0.85rem;
+      }
+      
+      .user-profile img {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .dropdown-menu {
+        width: 160px;
+        top: 45px;
+      }
+      
+      .dropdown-menu a {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+      
+      .intro {
+        padding: 20px 12px;
+        margin: 10px 4%;
+      }
+      
+      .intro h2 {
+        font-size: 1.3rem;
+      }
+      
+      .intro p {
+        font-size: 0.9rem;
+      }
+      
+      .cta-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .featured-card {
+        padding: 20px 12px;
+      }
+      
+      .featured-card i {
+        font-size: 2rem;
+      }
+      
+      .featured-card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .featured-card p {
+        font-size: 0.9rem;
+      }
+      
+      .featured-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .sections {
+        padding: 15px 4%;
+        gap: 15px;
+      }
+      
+      .cards-container {
+        gap: 12px;
+      }
+      
+      .card {
+        padding: 18px 12px;
+      }
+      
+      .card i {
+        font-size: 1.8rem;
+      }
+      
+      .card h3 {
+        font-size: 1.1rem;
+      }
+      
+      .card p {
+        font-size: 0.85rem;
+      }
+      
+      .card-button {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+      }
+      
+      .ai-cards-container {
+        gap: 12px;
+      }
+      
+      .ai-card {
+        padding: 18px 12px;
+      }
+      
+      .ai-card i {
+        font-size: 2.2rem;
+      }
+      
+      .ai-card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .ai-card p {
+        font-size: 0.85rem;
+      }
+      
+      .ai-button {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+      
+      .tests-card {
+        padding: 18px 12px;
+      }
+      
+      .tests-card i {
+        font-size: 2.2rem;
+      }
+      
+      .tests-card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .tests-card p {
+        font-size: 0.85rem;
+      }
+      
+      .tests-button {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+      
+      .about-us {
+        padding: 25px 12px;
+        margin: 15px 4%;
+      }
+      
+      .about-header h2 {
+        font-size: 1.4rem;
+      }
+      
+      .about-header p {
+        font-size: 0.95rem;
+      }
+      
+      .about-section h3 {
+        font-size: 1.2rem;
+      }
+      
+      .about-section p {
+        font-size: 0.9rem;
+      }
+      
+      .highlight-box {
+        padding: 15px;
+      }
+      
+      .highlight-box p {
+        font-size: 0.9rem;
+      }
+      
+      .mission-card, .vision-card {
+        padding: 18px 12px;
+      }
+      
+      .mission-card h3, .vision-card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .mission-card p, .vision-card p {
+        font-size: 0.9rem;
+      }
+      
+      footer {
+        padding: 15px 4%;
+      }
+      
+      .footer-links {
+        gap: 10px;
+      }
+      
+      .footer-links a {
+        font-size: 0.85rem;
+      }
+      
+      .copyright {
+        font-size: 0.8rem;
+      }
+      
+      .chatbase-toggle {
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
+        bottom: 15px;
+        right: 15px;
+      }
+      
+      body[dir="rtl"] .chatbase-toggle {
+        right: auto;
+        left: 15px;
+      }
     }
-}
+    
+    /* Animation for cards */
+    .card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+    .card:nth-child(4) { animation-delay: 0.8s; }
+    .card:nth-child(5) { animation-delay: 1s; }
+    .card:nth-child(6) { animation-delay: 1.2s; }
+    
+    /* AI Cards Animation */
+    .ai-card {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    
+    .ai-card:nth-child(1) { animation-delay: 1.4s; }
+    .ai-card:nth-child(2) { animation-delay: 1.6s; }
+    
+    /* Tests Card Animation */
+    .tests-card { 
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+      animation-delay: 1.8s; 
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Touch improvements */
+    @media (hover: none) {
+      .card-button:hover,
+      .ai-button:hover,
+      .tests-button:hover,
+      .featured-button:hover,
+      .cta-button:hover {
+        transform: none;
+      }
+      
+      .card:hover,
+      .ai-card:hover,
+      .tests-card:hover {
+        transform: none;
+      }
+      
+      nav ul li a:hover {
+        transform: none;
+      }
+      
+      .card:hover:before {
+        transform: scaleX(1);
+      }
+    }
   </style>
 </head>
 <body dir="ltr">
@@ -1186,6 +1430,13 @@
       <i class="fas fa-brain"></i>
       <span id="logo-text">NeuroSense</span>
     </div>
+    
+    <!-- Hamburger Menu Button -->
+    <button class="hamburger-menu" id="hamburgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     
     <nav>
       <ul>
@@ -1214,6 +1465,22 @@
     </div>
   </header>
 
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  
+  <!-- Mobile Navigation Menu -->
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="home.html"><i class="fas fa-home"></i> <span id="mobile-nav-home">Home</span></a></li>
+      <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> <span id="mobile-nav-dashboard">Dashboard</span></a></li>
+      <li><a href="citation.html"><i class="fas fa-book"></i> <span id="mobile-nav-resources">Resources</span></a></li>
+      <li><a href="appiont.html"><i class="fas fa-calendar-alt"></i> <span id="mobile-nav-appointments">Appointments</span></a></li>
+      <li><a href="#" id="mobileProfileBtn"><i class="fas fa-user"></i> <span id="mobile-menu-profile">Profile</span></a></li>
+      <li><a href="#" id="mobileSettingsBtn"><i class="fas fa-cog"></i> <span id="mobile-menu-settings">Settings</span></a></li>
+      <li><a href="#" id="mobileLogoutBtn"><i class="fas fa-sign-out-alt"></i> <span id="mobile-menu-logout">Logout</span></a></li>
+    </ul>
+  </nav>
+
   <section class="intro">
     <h2 id="welcome-title">Welcome Back, <span id="welcomeName">User</span>!</h2>
     <p id="welcome-text">How are you feeling today? Let NeuroSense help you monitor and improve your mental wellbeing.</p>
@@ -1227,38 +1494,37 @@
       <p id="featured-text">Take our comprehensive assessment to get personalized insights about your mental health status and recommendations.</p>
       <a href="bot.html" class="featured-button" id="featured-button">Begin Assessment</a>
     </div>
-    <!-- New Tests Card Section -->
-<div class="ai-cards-container">
-  <div class="ai-card">
-    <i class="fas fa-robot"></i>
-    <h3 id="ai1-title">Advanced AI Diagnosis</h3>
-    <p id="ai1-text">Get precise mental health analysis using cutting-edge artificial intelligence algorithms specifically trained for psychological assessment.</p>
-    <div class="ai-buttons-container">
-      <a href="https://4a35fc5f98d5184aba.gradio.live/" class="ai-button" target="_blank" id="ai1-button1">AI Specific Diagnosis</a>
-      <a href="http://www.chatbase.co/A6m58OXocseurLhkA1Ahe/help" class="ai-button" target="_blank" id="ai1-button2">Connect with AI Therapy</a>
+    
+    <div class="ai-cards-container">
+      <div class="ai-card">
+        <i class="fas fa-robot"></i>
+        <h3 id="ai1-title">Advanced AI Diagnosis</h3>
+        <p id="ai1-text">Get precise mental health analysis using cutting-edge artificial intelligence algorithms specifically trained for psychological assessment.</p>
+        <div class="ai-buttons-container">
+          <a href="https://4a35fc5f98d5184aba.gradio.live/" class="ai-button" target="_blank" id="ai1-button1">AI Specific Diagnosis</a>
+          <a href="http://www.chatbase.co/A6m58OXocseurLhkA1Ahe/help" class="ai-button" target="_blank" id="ai1-button2">Connect with AI Therapy</a>
+        </div>
+      </div>
+      
+      <div class="ai-card">
+        <i class="fas fa-headset"></i>
+        <h3 id="ai2-title">AI Support Assistant</h3>
+        <p id="ai2-text">24/7 AI-powered mental health support with natural conversation capabilities and evidence-based therapeutic techniques.</p>
+        <div class="ai-buttons-container">
+          <a href="https://www.chatbase.co/2w1DldfFXSF9GqgPRI2T4/help" class="ai-button" target="_blank" id="ai2-button1">Connect with AI Assistant</a>
+          <a href="prof.html" class="ai-button" id="ai2-button2">Professional Consultation</a>
+        </div>
+      </div>
     </div>
-  </div>
-  
-  <div class="ai-card">
-    <i class="fas fa-headset"></i>
-    <h3 id="ai2-title">AI Support Assistant</h3>
-    <p id="ai2-text">24/7 AI-powered mental health support with natural conversation capabilities and evidence-based therapeutic techniques.</p>
-    <div class="ai-buttons-container">
-      <a href="https://www.chatbase.co/2w1DldfFXSF9GqgPRI2T4/help" class="ai-button" target="_blank" id="ai2-button1">Connect with AI Assistant</a>
-      <a href="prof.html" class="ai-button" id="ai2-button2">Professional Consultation</a>
-    </div>
-  </div>
-</div>
 
-<!-- New Tests Card Section -->
-<div class="tests-card">
-  <i class="fas fa-clipboard-check"></i>
-  <h3 id="tests-title">Psychological Assessments</h3>
-  <p id="tests-text">Comprehensive collection of internationally validated psychological tests for accurate mental health evaluation. These standardized assessments help identify symptoms of depression, anxiety, PTSD, ADHD, OCD, bipolar disorder, and other mental health conditions with scientific precision.</p>
-  <div class="tests-buttons-container">
-    <a href="test.html" class="tests-button" id="tests-button">Explore All Tests</a>
-  </div>
-</div>
+    <div class="tests-card">
+      <i class="fas fa-clipboard-check"></i>
+      <h3 id="tests-title">Psychological Assessments</h3>
+      <p id="tests-text">Comprehensive collection of internationally validated psychological tests for accurate mental health evaluation. These standardized assessments help identify symptoms of depression, anxiety, PTSD, ADHD, OCD, bipolar disorder, and other mental health conditions with scientific precision.</p>
+      <div class="tests-buttons-container">
+        <a href="test.html" class="tests-button" id="tests-button">Explore All Tests</a>
+      </div>
+    </div>
 
     <div class="cards-container">
       <div class="card">
@@ -1436,11 +1702,18 @@
         "nav-dashboard": "Dashboard",
         "nav-resources": "Resources",
         "nav-appointments": "Appointments",
+        "mobile-nav-home": "Home",
+        "mobile-nav-dashboard": "Dashboard",
+        "mobile-nav-resources": "Resources",
+        "mobile-nav-appointments": "Appointments",
         
         // User menu
         "menu-profile": "Profile",
         "menu-settings": "Settings",
         "menu-logout": "Logout",
+        "mobile-menu-profile": "Profile",
+        "mobile-menu-settings": "Settings",
+        "mobile-menu-logout": "Logout",
         
         // Welcome section
         "welcome-title": "Welcome Back, ",
@@ -1543,11 +1816,18 @@
         "nav-dashboard": "لوحة التحكم",
         "nav-resources": "المصادر",
         "nav-appointments": "المواعيد",
+        "mobile-nav-home": "الرئيسية",
+        "mobile-nav-dashboard": "لوحة التحكم",
+        "mobile-nav-resources": "المصادر",
+        "mobile-nav-appointments": "المواعيد",
         
         // User menu
         "menu-profile": "الملف الشخصي",
         "menu-settings": "الإعدادات",
         "menu-logout": "تسجيل الخروج",
+        "mobile-menu-profile": "الملف الشخصي",
+        "mobile-menu-settings": "الإعدادات",
+        "mobile-menu-logout": "تسجيل الخروج",
         
         // Welcome section
         "welcome-title": "مرحباً بعودتك، ",
@@ -1718,11 +1998,59 @@
     document.getElementById('userPhone').value = savedUserData.phone;
     document.getElementById('userBirthdate').value = savedUserData.birthdate;
     
+    // Hamburger menu functionality
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    hamburgerMenu.addEventListener('click', () => {
+      hamburgerMenu.classList.toggle('active');
+      mobileNavOverlay.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+    });
+    
+    mobileNavOverlay.addEventListener('click', () => {
+      hamburgerMenu.classList.remove('active');
+      mobileNavOverlay.classList.remove('active');
+      mobileNav.classList.remove('active');
+    });
+    
+    // Mobile navigation links
+    document.getElementById('mobileProfileBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMobileMenu();
+    });
+    
+    document.getElementById('mobileSettingsBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      settingsModal.style.display = 'flex';
+      closeMobileMenu();
+    });
+    
+    document.getElementById('mobileLogoutBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Clear all user-related data
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      
+      // Redirect to login page
+      window.location.href = 'index.html';
+    });
+    
+    // Function to close mobile menu
+    function closeMobileMenu() {
+      hamburgerMenu.classList.remove('active');
+      mobileNavOverlay.classList.remove('active');
+      mobileNav.classList.remove('active');
+    }
+    
     // Language switcher functionality
     document.querySelectorAll('.language-option').forEach(option => {
       option.addEventListener('click', () => {
         const selectedLang = option.dataset.lang;
         updateLanguage(selectedLang);
+        closeMobileMenu();
       });
     });
     
@@ -1904,6 +2232,9 @@
         }
       }, 2000);
     });
+    
+    // Handle touch events for better mobile experience
+    document.addEventListener('touchstart', function() {}, {passive: true});
   </script>
 </body>
 </html>
