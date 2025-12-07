@@ -1203,8 +1203,8 @@
       </div>
       
       <div class="user-profile" id="userProfile">
-        <img src="" alt="User Profile" id="profileImage">
-        <span id="profileName">User</span>
+        <img src="https://ui-avatars.com/api/?name=Fatma+Hussien&background=random" alt="Fatma Hussien Abdelhafez" id="profileImage">
+        <span id="profileName">Fatma Hussien</span>
         <div class="dropdown-menu" id="dropdownMenu">
           <a href="#" id="profileBtn"><i class="fas fa-user"></i> <span id="menu-profile">Profile</span></a>
           <a href="#" id="settingsBtn"><i class="fas fa-cog"></i> <span id="menu-settings">Settings</span></a>
@@ -1215,7 +1215,7 @@
   </header>
 
   <section class="intro">
-    <h2 id="welcome-title">Welcome Back, <span id="welcomeName">User</span>!</h2>
+    <h2 id="welcome-title">Welcome Back, <span id="welcomeName">Fatma Hussien</span>!</h2>
     <p id="welcome-text">How are you feeling today? Let NeuroSense help you monitor and improve your mental wellbeing.</p>
     <a href="bel.html" class="cta-button" id="cta-button">Start Mental Health Check</a>
   </section>
@@ -1373,22 +1373,22 @@
       <form class="settings-form" id="settingsForm">
         <div class="form-group">
           <label for="userName" id="label-name">Full Name</label>
-          <input type="text" id="userName" required>
+          <input type="text" id="userName" value="Fatma Hussien Abdelhafez" required>
         </div>
         
         <div class="form-group">
           <label for="userEmail" id="label-email">Email</label>
-          <input type="email" id="userEmail" required>
+          <input type="email" id="userEmail" value="fatma.hussien@example.com" required>
         </div>
         
         <div class="form-group">
           <label for="userPhone" id="label-phone">Phone Number</label>
-          <input type="tel" id="userPhone">
+          <input type="tel" id="userPhone" value="+20 123 456 7890">
         </div>
         
         <div class="form-group">
           <label for="userBirthdate" id="label-birthdate">Date of Birth</label>
-          <input type="date" id="userBirthdate">
+          <input type="date" id="userBirthdate" value="1995-05-15">
         </div>
         
         <div class="form-group">
@@ -1428,7 +1428,7 @@
   </div>
 
   <script>
-    // Language content
+    // Language content - تعريف محتوى اللغات أولاً
     const languageContent = {
       en: {
         // Navigation
@@ -1462,11 +1462,10 @@
         "ai2-text": "24/7 AI-powered mental health support with natural conversation capabilities and evidence-based therapeutic techniques.",
         "ai2-button1": "Connect with AI Assistant",
         "ai2-button2": "Professional Consultation",
-        
+        // في كائن اللغة الإنجليزية، أضف:
         "tests-title": "Psychological Assessments",
         "tests-text": "Comprehensive collection of internationally validated psychological tests for accurate mental health evaluation. These standardized assessments help identify symptoms of depression, anxiety, PTSD, ADHD, OCD, bipolar disorder, and other mental health conditions with scientific precision.",
         "tests-button": "Explore All Tests",
-        
         // Cards
         "card1-title": "Mental Health Library",
         "card1-text": "Comprehensive articles and videos about mental health disorders and wellness strategies.",
@@ -1569,11 +1568,10 @@
         "ai2-text": "دعم الصحة النفسية المدعوم بالذكاء الاصطناعي على مدار الساعة مع قدرات محادثة طبيعية وتقنيات علاجية قائمة على الأدلة.",
         "ai2-button1": "التواصل مع مساعد الذكاء الاصطناعي",
         "ai2-button2": "استشارة مهنية",
-        
+        // في كائن اللغة العربية، أضف:
         "tests-title": "الاختبارات النفسية",
         "tests-text": "مجموعة شاملة من الاختبارات النفسية المعتمدة دولياً لتقييم دقيق للصحة النفسية. تساعد هذه التقييمات الموحدة في تحديد أعراض الاكتئاب، القلق، اضطراب ما بعد الصدمة، اضطراب فرط الحركة ونقص الانتباه، الوسواس القهري، الاضطراب ثنائي القطب، وحالات الصحة النفسية الأخرى بدقة علمية.",
         "tests-button": "استكشف جميع الاختبارات",
-        
         // Cards
         "card1-title": "مكتبة الصحة النفسية",
         "card1-text": "مقالات وفيديوهات شاملة حول اضطرابات الصحة النفسية واستراتيجيات العافية.",
@@ -1675,26 +1673,17 @@
       currentLanguage = lang;
     }
 
-    // ========== MAIN CODE START ==========
-    
     // Check if user is logged in
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const userData = localStorage.getItem('user');
-    
-    if (!isLoggedIn || !userData) {
+    if (!localStorage.getItem('isLoggedIn')) {
       window.location.href = 'index.html';
-      throw new Error('User not logged in');
     }
     
-    // Parse user data
-    const user = JSON.parse(userData);
-    
-    // Load user data from localStorage
-    const savedUserData = JSON.parse(localStorage.getItem('userData')) || {
-      name: user.name || "User",
-      email: user.email || "user@example.com",
+    // Load user data
+    const userData = JSON.parse(localStorage.getItem('userData')) || {
+      name: "Fatma Hussien Abdelhafez",
+      email: "fatma.hussien@example.com",
       phone: "+20 123 456 7890",
-      birthdate: "1995-01-01",
+      birthdate: "1995-05-15",
       password: "password123"
     };
     
@@ -1704,20 +1693,6 @@
     // Initialize language
     updateLanguage(currentLanguage);
     
-    // Set user information dynamically
-    document.getElementById('profileName').textContent = user.name || savedUserData.name;
-    document.getElementById('welcomeName').textContent = user.name || savedUserData.name;
-    
-    // Set profile image based on user name
-    const userNameForAvatar = user.name || savedUserData.name;
-    document.getElementById('profileImage').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userNameForAvatar)}&background=random`;
-    
-    // Fill settings form with user data
-    document.getElementById('userName').value = user.name || savedUserData.name;
-    document.getElementById('userEmail').value = user.email || savedUserData.email;
-    document.getElementById('userPhone').value = savedUserData.phone;
-    document.getElementById('userBirthdate').value = savedUserData.birthdate;
-    
     // Language switcher functionality
     document.querySelectorAll('.language-option').forEach(option => {
       option.addEventListener('click', () => {
@@ -1725,6 +1700,17 @@
         updateLanguage(selectedLang);
       });
     });
+    
+    // Set profile information
+    document.getElementById('profileName').textContent = "Fatma Hussien";
+    document.getElementById('welcomeName').textContent = "Fatma Hussien";
+    document.getElementById('userName').value = userData.name;
+    document.getElementById('userEmail').value = userData.email;
+    document.getElementById('userPhone').value = userData.phone;
+    document.getElementById('userBirthdate').value = userData.birthdate;
+    
+    // Set profile image based on name
+    document.getElementById('profileImage').src = `https://ui-avatars.com/api/?name=Fatma+Hussien&background=random`;
     
     // User profile dropdown
     const userProfile = document.getElementById('userProfile');
@@ -1782,7 +1768,7 @@
           return;
         }
         
-        if (currentPassword !== savedUserData.password) {
+        if (currentPassword !== userData.password) {
           alert(currentLanguage === 'ar' ? 'كلمة المرور الحالية غير صحيحة' : 'Current password is incorrect');
           return;
         }
@@ -1798,22 +1784,16 @@
         }
         
         // Update password
-        savedUserData.password = newPassword;
+        userData.password = newPassword;
       }
       
       // Update user data
-      savedUserData.name = userName;
-      savedUserData.email = userEmail;
-      savedUserData.phone = userPhone;
-      savedUserData.birthdate = userBirthdate;
+      userData.name = userName;
+      userData.email = userEmail;
+      userData.phone = userPhone;
+      userData.birthdate = userBirthdate;
       
-      // Update localStorage user data
-      localStorage.setItem('userData', JSON.stringify(savedUserData));
-      
-      // Update the main user object from login
-      user.name = userName;
-      user.email = userEmail;
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('userData', JSON.stringify(userData));
       
       // Update UI
       document.getElementById('profileName').textContent = userName.split(' ').slice(0, 2).join(' ');
@@ -1835,14 +1815,7 @@
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', (e) => {
       e.preventDefault();
-      // Clear all user-related data
       localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      // Keep userData for next login if desired, or remove it
-      // localStorage.removeItem('userData');
-      
-      // Redirect to login page
       window.location.href = 'index.html';
     });
 
@@ -1872,9 +1845,9 @@
       d.getElementsByTagName('head')[0].appendChild(s);
     })();
 
-    // Initialize chatbot
+    // تهيئة الشات بوت بشكل صحيح
     document.addEventListener('DOMContentLoaded', function() {
-      // Hide default black bubble
+      // إخفاء الأيقونة السوداء الافتراضية
       const hideDefaultBubble = setInterval(function() {
         const defaultBubble = document.getElementById('chatbase-bubble');
         if (defaultBubble) {
@@ -1883,19 +1856,19 @@
         }
       }, 100);
       
-      // Open chatbot when clicking blue button
+      // فتح الشات بوت عند النقر على الزر الأزرق
       chatbaseToggle.addEventListener('click', function() {
-        // Try to open chatbot
+        // محاولة فتح الشات بوت
         if (window.chatbase && typeof window.chatbase === 'function') {
           window.chatbase('openChat');
         } else {
-          // If chatbot not loaded properly, reload
+          // إذا لم يتم تحميل الشات بوت بشكل صحيح، إعادة التحميل
           console.log('Chatbase not loaded properly, reloading...');
           location.reload();
         }
       });
       
-      // Check if chatbot appears after page load
+      // التأكد من ظهور الشات بوت بعد تحميل الصفحة
       setTimeout(function() {
         if (window.chatbase && typeof window.chatbase === 'function') {
           console.log('Chatbase loaded successfully');
